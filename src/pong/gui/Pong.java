@@ -136,35 +136,36 @@ public class Pong extends JPanel implements KeyListener {
 	 */
 	public void animate() {
 		/* Update ball position */
-		ball_position.translate(ball_speed.x, ball_speed.y);
-		if (ball_position.x < 0)
+		ball.Move();
+
+		if (ball.getPosition().x < 0)
 		{
-			ball_position.x = 0;
-			ball_speed.x = -ball_speed.x;
+			ball.setX(0);
+			ball.setSpeedX(-ball.getSpeed().x);
 		}
-		if (ball_position.y < 0)
+		if (ball.getPosition().y < 0)
 		{
-			ball_position.y = 0;
-			ball_speed.y = -ball_speed.y;
+			ball.setY(0);
+			ball.setSpeedY(-ball.getSpeed().y);
 		}
-		/* Collisions */
-		if (ball_position.x > SIZE_PONG_X - ball_width)
+		if (ball.getPosition().x > SIZE_PONG_X - ball.getWidth())
 		{
-			ball_position.x = SIZE_PONG_X - ball_width;
-			ball_speed.x = -ball_speed.x;
+			ball.setX(SIZE_PONG_X - ball.getWidth());
+			ball.setSpeedX(-ball.getSpeed().x);
 		}
-		if (ball_position.y > SIZE_PONG_Y - ball_height)
+		if (ball.getPosition().y > SIZE_PONG_Y - ball.getHeight())
 		{
-			ball_position.y = SIZE_PONG_Y - ball_height;
-			ball_speed.y = -ball_speed.y;
+			ball.setY(SIZE_PONG_Y - ball.getHeight());
+			ball.setSpeedY(-ball.getSpeed().y);
 		}
 
 		/* Update racket position */
-		racket_position.y += racket_speed;
-		if (racket_position.y < 0)
-			racket_position.y = 0;
-		if (racket_position.y > SIZE_PONG_Y - racket_height/2)
-			racket_position.y = SIZE_PONG_Y - racket_height/2;
+		racket.Move();
+		
+		if (racket.getPosition().y < 0)
+			racket.setY(0);
+		if (racket.getPosition().y > SIZE_PONG_Y - racket.getHeight()/2)
+			racket.setY(SIZE_PONG_Y - racket.getHeight()/2);
 
 		/* And update output */
 		updateScreen();
@@ -174,11 +175,11 @@ public class Pong extends JPanel implements KeyListener {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_UP:
 			case KeyEvent.VK_KP_UP:
-				racket_speed = -RACKET_SPEED;
+				racket.setSpeed(-RACKET_SPEED);
 				break;
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_KP_DOWN:
-				racket_speed = RACKET_SPEED;
+				racket.setSpeed(RACKET_SPEED);
 				break;
 			default:
 				System.out.println("got press "+e);
@@ -188,11 +189,11 @@ public class Pong extends JPanel implements KeyListener {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_UP:
 			case KeyEvent.VK_KP_UP:
-				racket_speed = 0;
+				racket.setSpeed(0);
 				break;
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_KP_DOWN:
-				racket_speed = 0;
+				racket.setSpeed(0);
 				break;
 			default:
 				System.out.println("got release "+e);

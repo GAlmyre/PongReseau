@@ -16,6 +16,16 @@ public class Ball extends PongItem {
 		this.speed = speed;
 	}
 
+	public void setSpeedX(int speedX) {
+
+		this.speed.x = speedX;
+	}
+
+	public void setSpeedY(int speedY) {
+
+		this.speed.y = speedY;
+	}
+
 	/* Constructeur par défaut */
 	public Ball() {
 		super();
@@ -31,7 +41,6 @@ public class Ball extends PongItem {
 	/* Déplacement de la balle */
 	@Override
 	public void Move() {
-		this.position.x += speed.x;
-		this.position.y += speed.y;
+		this.position.translate(this.speed.x, this.speed.y);
 	}
 }
