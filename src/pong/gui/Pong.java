@@ -138,6 +138,36 @@ public class Pong extends JPanel implements KeyListener {
 		/* Update ball position */
 		ball.Move();
 
+		/* border collisions with ball  */
+		rebond(ball);
+
+		/* when the ball meets a racket */
+		checkCollide(racket,ball);
+
+		/* Update racket position */
+		racket.Move();
+		
+		if (racket.getPosition().y < 0)
+			racket.setY(0);
+		if (racket.getPosition().y > SIZE_PONG_Y - racket.getHeight()/2)
+			racket.setY(SIZE_PONG_Y - racket.getHeight()/2);
+
+		/* And update output */
+		updateScreen();
+	}
+
+	public void checkCollide(Racket racket, Ball ball) {
+
+		if (ball.getPosition().x < racket.getPosition().x+racket.getWidth() && ball.getPosition().y <= racket.getPosition().y+racket.getHeight()/2)
+		{
+			ball.setX(racket.getPosition().x+racket.getWidth());
+			ball.setSpeedX(-ball.getSpeed().x);
+		}
+
+	}
+
+	public void rebond(Ball ball) {
+
 		if (ball.getPosition().x < 0)
 		{
 			ball.setX(0);
@@ -158,17 +188,6 @@ public class Pong extends JPanel implements KeyListener {
 			ball.setY(SIZE_PONG_Y - ball.getHeight());
 			ball.setSpeedY(-ball.getSpeed().y);
 		}
-
-		/* Update racket position */
-		racket.Move();
-		
-		if (racket.getPosition().y < 0)
-			racket.setY(0);
-		if (racket.getPosition().y > SIZE_PONG_Y - racket.getHeight()/2)
-			racket.setY(SIZE_PONG_Y - racket.getHeight()/2);
-
-		/* And update output */
-		updateScreen();
 	}
 
 	public void keyPressed(KeyEvent e) {
