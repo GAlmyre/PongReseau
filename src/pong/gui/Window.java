@@ -1,6 +1,7 @@
 package pong.gui;
 
 import javax.swing.JFrame;
+import java.io.IOException;
 
 /**
  * A Window is a Java frame containing an Pong
@@ -26,14 +27,18 @@ public class Window extends JFrame {
 	 * Displays the Window using the defined margins, and call the
 	 * {@link Pong#animate()} method of the {@link Pong} every 100ms
 	 */
-	public void displayOnscreen() {
+	public void displayOnscreen() throws IOException {
 		add(pong);
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 
 		while(true) {
-			pong.animate();
+			try {
+				pong.animate();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			try {
 				Thread.sleep(pong.timestep);
 			} catch (InterruptedException e) {};

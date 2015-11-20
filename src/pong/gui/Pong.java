@@ -11,6 +11,11 @@ import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +28,13 @@ import pong.Racket;
 /**
  * An Pong is a Java graphical container that extends the JPanel class in
  * order to display graphical elements.
+ */
+
+
+/*
+	Pour la partie réseau
+	On crée un socket dans le programme en fonction des arguments
+	si argument il y a, ce sera le string du constructeur du socket, sinon ce sera la machine "principale" et on utilisera donc localhost
  */
 public class Pong extends JPanel implements KeyListener {
 
@@ -107,8 +119,17 @@ public class Pong extends JPanel implements KeyListener {
 	 */
 	private Point racket_position = new Point(0, 0);
 
+	/**
+	 * Sockets et streams
+	 */
+	private ServerSocket server;
+	private Socket client;
+	private OutputStream os;
+	private InputStream is;
+	private boolean isServer;
+
 	/* Initialisation des objets du Pong */
-	public Pong() {
+	public Pong(String arg) {
 		ImageIcon icon;
 
 		Image tmpImage = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("image/ball.png"));
@@ -136,13 +157,26 @@ public class Pong extends JPanel implements KeyListener {
 
 		this.setPreferredSize(new Dimension(SIZE_PONG_X, SIZE_PONG_Y));
 		this.addKeyListener(this);
-		
+
+		try {
+			if(arg == null) {
+				server = new ServerSocket(1844);
+				isServer = true;
+			}
+			else {
+				client = new Socket(arg, 1844);
+				isServer = false;
+			}
+		}
+		catch(Exception e) {
+			// traitement d'erreur
+		}
 	}
 
 	/**
          * Proceeds to the movement of the ball and updates the screen
 	 */
-	public void animate() {
+	public void animate() throws IOException {
 		/* Update ball position */
 		ball.Move();
 
@@ -209,7 +243,7 @@ public class Pong extends JPanel implements KeyListener {
 	/**
 	 * Draw each Pong item based on new positions
 	 */
-	public void updateScreen() {
+	public void updateScreen() throws IOException {
 		if (buffer == null) {
 			/* First time we get called with all windows initialized */
 			buffer = createImage(SIZE_PONG_X, SIZE_PONG_Y);
@@ -227,5 +261,25 @@ public class Pong extends JPanel implements KeyListener {
 		graphicContext.drawImage(racketG.getSprite(), racketG.getPosition().x, racketG.getPosition().y, racketG.getWidth(), racketG.getHeight(), null);
 		graphicContext.drawImage(racketD.getSprite(), racketD.getPosition().x, racketD.getPosition().y, racketD.getWidth(), racketD.getHeight(), null);
 		this.repaint();
+		transfert();
+	}
+
+	public void transfert() throws IOException {
+
+		// transfert d'infos par les sockets
+		if(isServer)
+			client = server.accept();
+
+		os = client.getOutputStream();
+		is = client.getInputStream();
+		if(!isServer)
+			os.write('a');
+		if(isServer)
+			System.out.println(is.read());
+		server.close();
+		client.close();
+
+
+
 	}
 }
