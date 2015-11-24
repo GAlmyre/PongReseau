@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4838cecd-edff-4a1b-80da-d13182805598" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PongReseau/pong/Main.class" afterPath="$PROJECT_DIR$/out/production/PongReseau/pong/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PongReseau/pong/gui/Pong.class" afterPath="$PROJECT_DIR$/out/production/PongReseau/pong/gui/Pong.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pong/Main.java" afterPath="$PROJECT_DIR$/src/pong/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pong/Ball.java" afterPath="$PROJECT_DIR$/src/pong/Ball.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pong/gui/Pong.java" afterPath="$PROJECT_DIR$/src/pong/gui/Pong.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pong/Racket.java" afterPath="$PROJECT_DIR$/src/pong/Racket.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PongReseau.iws" />
@@ -32,9 +31,12 @@
       <file leaf-file-name="Pong.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pong/gui/Pong.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="5.822254">
-              <caret line="262" column="37" selection-start-line="262" selection-start-column="37" selection-end-line="262" selection-end-column="37" />
-              <folding />
+            <state vertical-scroll-proportion="0.3660221">
+              <caret line="266" column="37" selection-start-line="266" selection-start-column="37" selection-end-line="266" selection-end-column="37" />
+              <folding>
+                <element signature="e#5814#5815#0" expanded="true" />
+                <element signature="e#5852#5853#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -52,9 +54,11 @@
       <file leaf-file-name="Racket.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pong/Racket.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
-              <folding />
+            <state vertical-scroll-proportion="-17.53125">
+              <caret line="46" column="29" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
+              <folding>
+                <element signature="e#906#907#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,8 +66,8 @@
       <file leaf-file-name="Ball.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pong/Ball.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="44" column="60" selection-start-line="44" selection-start-column="60" selection-end-line="44" selection-end-column="60" />
+            <state vertical-scroll-proportion="-6.90625">
+              <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -84,7 +88,7 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pong/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.625">
+            <state vertical-scroll-proportion="0.0">
               <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -107,10 +111,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/pong/PongItem.java" />
-        <option value="$PROJECT_DIR$/src/pong/Ball.java" />
-        <option value="$PROJECT_DIR$/src/pong/Racket.java" />
         <option value="$PROJECT_DIR$/src/pong/gui/Window.java" />
         <option value="$PROJECT_DIR$/src/pong/Main.java" />
+        <option value="$PROJECT_DIR$/src/pong/Ball.java" />
+        <option value="$PROJECT_DIR$/src/pong/Racket.java" />
         <option value="$PROJECT_DIR$/src/pong/gui/Pong.java" />
       </list>
     </option>
@@ -158,9 +162,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -235,6 +236,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -451,11 +455,11 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17984831" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17984831" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17984831" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18229167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -496,8 +500,68 @@
     <entry file="file://$PROJECT_DIR$/src/pong/gui/Pong.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="152" column="50" selection-start-line="152" selection-start-column="50" selection-end-line="152" selection-end-column="50" />
+          <caret line="48" column="7" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
+          <folding>
+            <element signature="e#5814#5815#0" expanded="true" />
+            <element signature="e#5852#5853#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pong/PongItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="68" column="38" selection-start-line="68" selection-start-column="38" selection-end-line="68" selection-end-column="38" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pong/Racket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
+          <folding>
+            <element signature="e#906#907#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pong/Ball.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="60" selection-start-line="44" selection-start-column="60" selection-end-line="44" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pong/gui/Window.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pong/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pong/gui/Pong.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="152" column="50" selection-start-line="152" selection-start-column="50" selection-end-line="152" selection-end-column="50" />
+          <folding>
+            <element signature="e#5814#5815#0" expanded="true" />
+            <element signature="e#5852#5853#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -513,7 +577,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="e#906#907#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -557,7 +623,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="266" column="48" selection-start-line="266" selection-start-column="48" selection-end-line="266" selection-end-column="48" />
-          <folding />
+          <folding>
+            <element signature="e#5814#5815#0" expanded="true" />
+            <element signature="e#5852#5853#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -583,7 +652,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="e#906#907#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -609,7 +680,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="137" selection-start-line="31" selection-start-column="137" selection-end-line="31" selection-end-column="137" />
-          <folding />
+          <folding>
+            <element signature="e#5814#5815#0" expanded="true" />
+            <element signature="e#5852#5853#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -625,7 +699,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="e#906#907#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -651,7 +727,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#5814#5815#0" expanded="true" />
+            <element signature="e#5852#5853#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -667,7 +746,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="e#906#907#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -693,7 +774,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="183" column="20" selection-start-line="183" selection-start-column="20" selection-end-line="183" selection-end-column="20" />
-          <folding />
+          <folding>
+            <element signature="e#5814#5815#0" expanded="true" />
+            <element signature="e#5852#5853#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -709,7 +793,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#906#907#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -735,7 +821,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#5814#5815#0" expanded="true" />
+            <element signature="e#5852#5853#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -751,7 +840,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#906#907#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -785,7 +876,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#906#907#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -801,16 +894,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pong/Racket.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
-          <folding />
+        <state vertical-scroll-proportion="-17.53125">
+          <caret line="46" column="29" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
+          <folding>
+            <element signature="e#906#907#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pong/Ball.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="44" column="60" selection-start-line="44" selection-start-column="60" selection-end-line="44" selection-end-column="60" />
+        <state vertical-scroll-proportion="-6.90625">
+          <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -825,7 +920,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pong/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.625">
+        <state vertical-scroll-proportion="0.0">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -845,9 +940,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pong/gui/Pong.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.822254">
-          <caret line="262" column="37" selection-start-line="262" selection-start-column="37" selection-end-line="262" selection-end-column="37" />
-          <folding />
+        <state vertical-scroll-proportion="0.3660221">
+          <caret line="266" column="37" selection-start-line="266" selection-start-column="37" selection-end-line="266" selection-end-column="37" />
+          <folding>
+            <element signature="e#5814#5815#0" expanded="true" />
+            <element signature="e#5852#5853#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
