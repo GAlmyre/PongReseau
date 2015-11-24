@@ -129,7 +129,7 @@ public class Pong extends JPanel implements KeyListener {
 	private boolean isServer;
 
 	/* Initialisation des objets du Pong */
-	public Pong(String arg) {
+	public Pong(String[] args) throws IOException {
 		ImageIcon icon;
 
 		Image tmpImage = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("image/ball.png"));
@@ -158,19 +158,7 @@ public class Pong extends JPanel implements KeyListener {
 		this.setPreferredSize(new Dimension(SIZE_PONG_X, SIZE_PONG_Y));
 		this.addKeyListener(this);
 
-		try {
-			if(arg == null) {
-				server = new ServerSocket(1844);
-				isServer = true;
-			}
-			else {
-				client = new Socket(arg, 1844);
-				isServer = false;
-			}
-		}
-		catch(Exception e) {
-			// traitement d'erreur
-		}
+		InitSockets(args);
 	}
 
 	/**
@@ -264,22 +252,46 @@ public class Pong extends JPanel implements KeyListener {
 		transfert();
 	}
 
+	/**
+	 * Méthode de transfert de données d'un Pong à l'autre
+	 * @throws IOException
+	 */
 	public void transfert() throws IOException {
 
 		// transfert d'infos par les sockets
-		if(isServer)
-			client = server.accept();
-
 		os = client.getOutputStream();
 		is = client.getInputStream();
-		if(!isServer)
-			os.write('a');
-		if(isServer)
+		if (!isServer) {
+			os.write(44);
 			System.out.println(is.read());
-		server.close();
-		client.close();
+		}
+		if (isServer) {
+			os.write(18);
+			System.out.println(is.read());
+		}
+	}
 
+	/**
+	 * Méthode d'initialisation des sockets, client, et serveur si il y a lieu
+	 * @param args
+	 * @throws IOException
+	 */
+	public void InitSockets(String[] args) throws IOException {
 
-
+		try {
+			if(args.length == 0) {
+				server = new ServerSocket(1844);
+				isServer = true;
+				if(isServer)
+					client = server.accept();
+			}
+			else {
+				client = new Socket(args[0], 1844);
+				isServer = false;
+			}
+		}
+		catch(Exception e) {
+			// traitement d'erreur
+		}
 	}
 }
