@@ -124,6 +124,8 @@ public class Pong extends JPanel implements KeyListener {
 	private Socket client;
 	private OutputStream os;
 	private InputStream is;
+	private BufferedReader br;
+	private PrintStream ps;
 	private boolean isServer;
 	private ImageIcon icon;
 
@@ -171,7 +173,15 @@ public class Pong extends JPanel implements KeyListener {
 	 */
 	public void animate() throws IOException {
 		/* Update ball position */
-		ball.Move();
+		if(isServer) {
+			ball.Move();
+			ps.println(ball.getPosition().x);
+			ps.println(ball.getPosition().y);
+		}
+		else {
+			ball.setX(Integer.parseInt(br.readLine()));
+			ball.setY(Integer.parseInt(br.readLine()));
+		}
 
 		/* collisions de la balle */
 		ball.Collide(MyRacket, P2Racket, SIZE_PONG_X, SIZE_PONG_Y);
@@ -263,17 +273,13 @@ public class Pong extends JPanel implements KeyListener {
 	public void transfert() throws IOException {
 
 		// transfert d'infos par les sockets
-		os = client.getOutputStream();
-		is = client.getInputStream();
-		DataOutputStream out = new DataOutputStream(os);
-		DataInputStream in = new DataInputStream(is);
 		if (!isServer) {
-			out.writeInt(MyRacket.getPosition().y);
+			ps.println(MyRacket.getPosition().y);
 		}
 		if (isServer) {
-			out.writeInt(MyRacket.getPosition().y);
+			ps.println(MyRacket.getPosition().y);
 		}
-		P2Racket.setY(in.readInt());
+		P2Racket.setY(Integer.parseInt(br.readLine()));
 	}
 
 	/**
@@ -300,5 +306,11 @@ public class Pong extends JPanel implements KeyListener {
 		catch(Exception e) {
 			// traitement d'erreur
 		}
+		os = client.getOutputStream();
+		is = client.getInputStream();
+		//DataOutputStream out = new DataOutputStream(os);
+		//DataInputStream in = new DataInputStream(is);
+		br = new BufferedReader(new InputStreamReader(is, "utf-8"));
+		ps = new PrintStream(os, false, "utf-8");
 	}
 }
