@@ -34,7 +34,7 @@ public class Racket extends PongItem {
 		this.position.y += this.speed;
 	}
 
-	/* Collisions de la rauquette avec les murs */
+	/* Collisions de la raquette avec les murs */
 	public void Collide(int pongY) {
 
 		if (this.getPosition().y < 0)
@@ -42,5 +42,9 @@ public class Racket extends PongItem {
 		if (this.getPosition().y > pongY - this.getHeight()/2)
 			this.setY(pongY - this.getHeight()/2);
 
+	}
+
+	public void setY(int y) {
+		this.position.y = y;
 	}
 }

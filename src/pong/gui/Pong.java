@@ -11,9 +11,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -100,8 +98,8 @@ public class Pong extends JPanel implements KeyListener {
 	/**
 	 * The Rackets to be displayed
 	 */
-	private final Racket racketG;
-	private final Racket racketD;
+	private final Racket MyRacket;
+	private final Racket P2Racket;
 	/**
 	 * Width of the racket in pixels
 	 */
@@ -126,7 +124,10 @@ public class Pong extends JPanel implements KeyListener {
 	private Socket client;
 	private OutputStream os;
 	private InputStream is;
+	private BufferedReader br;
+	private PrintStream ps;
 	private boolean isServer;
+	private ImageIcon icon;
 
 	/* Initialisation des objets du Pong */
 	public Pong(String[] args) throws IOException {
@@ -143,22 +144,28 @@ public class Pong extends JPanel implements KeyListener {
 		
 		/* création des raquettes */
 		tmpImage = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("image/racket.png"));
-		racketG = new Racket(racket_position,tmpImage, racket_width, racket_height, racket_speed);
-		racketD = new Racket(racket_position,tmpImage, racket_width, racket_height, racket_speed);
+		MyRacket = new Racket(racket_position,tmpImage, racket_width, racket_height, racket_speed);
+		P2Racket = new Racket(racket_position,tmpImage, racket_width, racket_height, racket_speed);
 		
-		icon = new ImageIcon(racketG.getSprite());
-		racketG.setHeight(icon.getIconHeight());
-		racketG.setWidth(icon.getIconWidth());
+		icon = new ImageIcon(MyRacket.getSprite());
+		MyRacket.setHeight(icon.getIconHeight());
+		MyRacket.setWidth(icon.getIconWidth());
 
-		icon = new ImageIcon(racketD.getSprite());
-		racketD.setHeight(icon.getIconHeight());
-		racketD.setWidth(icon.getIconWidth());
-		racketD.setPosition(new Point(SIZE_PONG_X - racketD.getWidth(),400));
+		icon = new ImageIcon(P2Racket.getSprite());
+		P2Racket.setHeight(icon.getIconHeight());
+		P2Racket.setWidth(icon.getIconWidth());
+
+		InitSockets(args);
+
+		if(isServer) {
+			P2Racket.setPosition(new Point(SIZE_PONG_X - P2Racket.getWidth(), SIZE_PONG_Y/2));
+		}
+		else {
+			MyRacket.setPosition(new Point(SIZE_PONG_X - P2Racket.getWidth(), SIZE_PONG_Y/2));
+		}
 
 		this.setPreferredSize(new Dimension(SIZE_PONG_X, SIZE_PONG_Y));
 		this.addKeyListener(this);
-
-		InitSockets(args);
 	}
 
 	/**
@@ -166,18 +173,25 @@ public class Pong extends JPanel implements KeyListener {
 	 */
 	public void animate() throws IOException {
 		/* Update ball position */
-		ball.Move();
+		if(isServer) {
+			ball.Move();
+			ps.println(ball.getPosition().x);
+			ps.println(ball.getPosition().y);
+		}
+		else {
+			ball.setX(Integer.parseInt(br.readLine()));
+			ball.setY(Integer.parseInt(br.readLine()));
+		}
 
 		/* collisions de la balle */
-		ball.Collide(racketG, racketD, SIZE_PONG_X, SIZE_PONG_Y);
+		ball.Collide(MyRacket, P2Racket, SIZE_PONG_X, SIZE_PONG_Y);
 
 		/* Update racket position */
-		racketG.Move();
-		racketD.Move();
+		MyRacket.Move();
 
 		/* Collisions des raquettes */
-		racketG.Collide(SIZE_PONG_Y);
-		racketD.Collide(SIZE_PONG_Y);
+		MyRacket.Collide(SIZE_PONG_Y);
+		P2Racket.Collide(SIZE_PONG_Y);
 
 		/* And update output */
 		updateScreen();
@@ -187,11 +201,11 @@ public class Pong extends JPanel implements KeyListener {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_UP:
 			case KeyEvent.VK_KP_UP:
-				racketG.setSpeed(-RACKET_SPEED);
+				MyRacket.setSpeed(-RACKET_SPEED);
 				break;
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_KP_DOWN:
-				racketG.setSpeed(RACKET_SPEED);
+				MyRacket.setSpeed(RACKET_SPEED);
 				break;
 			default:
 				System.out.println("got press "+e);
@@ -201,11 +215,11 @@ public class Pong extends JPanel implements KeyListener {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_UP:
 			case KeyEvent.VK_KP_UP:
-				racketG.setSpeed(0);
+				MyRacket.setSpeed(0);
 				break;
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_KP_DOWN:
-				racketG.setSpeed(0);
+				MyRacket.setSpeed(0);
 				break;
 			default:
 				System.out.println("got release "+e);
@@ -240,16 +254,16 @@ public class Pong extends JPanel implements KeyListener {
 			else
 				graphicContext = buffer.getGraphics();
 		}
+		transfert();
 		/* Fill the area with blue */
 		graphicContext.setColor(backgroundColor);
 		graphicContext.fillRect(0, 0, SIZE_PONG_X, SIZE_PONG_Y);
 
 		/* Draw items */
 		graphicContext.drawImage(ball.getSprite(), ball.getPosition().x, ball.getPosition().y, ball.getWidth(), ball.getHeight(), null);
-		graphicContext.drawImage(racketG.getSprite(), racketG.getPosition().x, racketG.getPosition().y, racketG.getWidth(), racketG.getHeight(), null);
-		graphicContext.drawImage(racketD.getSprite(), racketD.getPosition().x, racketD.getPosition().y, racketD.getWidth(), racketD.getHeight(), null);
+		graphicContext.drawImage(MyRacket.getSprite(), MyRacket.getPosition().x, MyRacket.getPosition().y, MyRacket.getWidth(), MyRacket.getHeight(), null);
+		graphicContext.drawImage(P2Racket.getSprite(), P2Racket.getPosition().x, P2Racket.getPosition().y, P2Racket.getWidth(), P2Racket.getHeight(), null);
 		this.repaint();
-		transfert();
 	}
 
 	/**
@@ -259,16 +273,13 @@ public class Pong extends JPanel implements KeyListener {
 	public void transfert() throws IOException {
 
 		// transfert d'infos par les sockets
-		os = client.getOutputStream();
-		is = client.getInputStream();
 		if (!isServer) {
-			os.write(44);
-			System.out.println(is.read());
+			ps.println(MyRacket.getPosition().y);
 		}
 		if (isServer) {
-			os.write(18);
-			System.out.println(is.read());
+			ps.println(MyRacket.getPosition().y);
 		}
+		P2Racket.setY(Integer.parseInt(br.readLine()));
 	}
 
 	/**
@@ -282,8 +293,10 @@ public class Pong extends JPanel implements KeyListener {
 			if(args.length == 0) {
 				server = new ServerSocket(1844);
 				isServer = true;
+				System.out.println("waiting ...");
 				if(isServer)
 					client = server.accept();
+				System.out.println("connected!");
 			}
 			else {
 				client = new Socket(args[0], 1844);
@@ -293,5 +306,11 @@ public class Pong extends JPanel implements KeyListener {
 		catch(Exception e) {
 			// traitement d'erreur
 		}
+		os = client.getOutputStream();
+		is = client.getInputStream();
+		//DataOutputStream out = new DataOutputStream(os);
+		//DataInputStream in = new DataInputStream(is);
+		br = new BufferedReader(new InputStreamReader(is, "utf-8"));
+		ps = new PrintStream(os, false, "utf-8");
 	}
 }

@@ -46,11 +46,22 @@ public class Ball extends PongItem {
 	}
 
 	/* Gestion des collisions avec les raquettes */
-	public void Collide (Racket rG, Racket rD, int pongX, int pongY) {
+	public void Collide (Racket r1, Racket r2, int pongX, int pongY) {
 
 		/**
 		 *  Verification des collisions avec les raquettes
 		 */
+		Racket rG;
+		Racket rD;
+
+		if(r1.getPosition().x < r2.getPosition().x) {
+			rG = r1;
+			rD = r2;
+		}
+		else{
+			rG = r2;
+			rD = r1;
+		}
 
 		/* On vérifie que l'on touche la première raquette */
 		if (this.getPosition().x < rG.getPosition().x+rG.getWidth()
