@@ -77,7 +77,7 @@ public class Ball extends PongItem {
 		/* On vérifie que l'on touche la deuxième raquette */
 		if (this.getPosition().x + this.getWidth() > rD.getPosition().x
 				&& this.getPosition().y <= rD.getPosition().y+rD.getHeight()/2
-				&& this.getPosition().y >= rG.getPosition().y)
+				&& this.getPosition().y >= rD.getPosition().y)
 		{
 			/* On modifie la trajectoire */
 			this.setX(rD.getPosition().x - this.getWidth());
