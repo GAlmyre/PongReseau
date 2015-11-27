@@ -1,23 +1,16 @@
 package pong.gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JPanel;
 
 import pong.Ball;
 import pong.PongItem;
@@ -42,7 +35,7 @@ public class Pong extends JPanel implements KeyListener {
 	 * Constant (c.f. final) common to all Pong instances (c.f. static)
 	 * defining the background color of the Pong
 	 */
-	private static final Color backgroundColor = new Color(0xFF, 0x40, 0);
+	private static final Color backgroundColor = new Color(0, 8, 255);
 
 	/**
 	 * Width of pong area
@@ -129,12 +122,21 @@ public class Pong extends JPanel implements KeyListener {
 	private boolean isServer;
 	private ImageIcon icon;
 
+	/**
+	 * Scores des joueurs
+	 */
+	private static int scoreP1, scoreP2;
+
+
 	/* Initialisation des objets du Pong */
 	public Pong(String[] args) throws IOException {
-		ImageIcon icon;
+		ImageIcon icon = null;
 
 		Image tmpImage = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("image/ball.png"));
-		
+
+		/* Initialisation des scores */
+		scoreP1 = scoreP2 = 0;
+
 		/* création de la balle */
 		ball = new Ball(ball_position, tmpImage, ball_width, ball_height, ball_speed);
 		
@@ -193,6 +195,9 @@ public class Pong extends JPanel implements KeyListener {
 		MyRacket.Collide(SIZE_PONG_Y);
 		P2Racket.Collide(SIZE_PONG_Y);
 
+		/*Mise à jour des scores */
+
+
 		/* And update output */
 		updateScreen();
 	}
@@ -234,12 +239,16 @@ public class Pong extends JPanel implements KeyListener {
 	 * window is created for the first time paint is called. The paint method is
 	 * also called if we minimize and after we maximize the window and if we
 	 * change the size of the window with the mouse.
-	 * 
+	 *
 	 * @see javax.swing.JComponent#paint(java.awt.Graphics)
 	 */
 	@Override
 	public void paint(Graphics g) {
 		g.drawImage(buffer, 0, 0, this);
+		Font f = new Font("Dialog", Font.BOLD, 50);
+		g.setFont(f);
+		g.drawString(String.valueOf(scoreP1),SIZE_PONG_X/4,SIZE_PONG_Y/10);
+		g.drawString(String.valueOf(scoreP2),3*SIZE_PONG_X/4,SIZE_PONG_Y/10);
 	}
 
 	/**
@@ -300,6 +309,7 @@ public class Pong extends JPanel implements KeyListener {
 			}
 			else {
 				client = new Socket(args[0], 1844);
+				System.out.println(args[0]);
 				isServer = false;
 			}
 		}
@@ -313,4 +323,14 @@ public class Pong extends JPanel implements KeyListener {
 		br = new BufferedReader(new InputStreamReader(is, "utf-8"));
 		ps = new PrintStream(os, false, "utf-8");
 	}
+
+	public static void updateScore(boolean bPlayerOne,boolean bPlayerTwo){
+		if(bPlayerOne) {
+			scoreP1++;
+		}
+		if(bPlayerTwo) {
+			scoreP2++;
+		}
+	}
+
 }

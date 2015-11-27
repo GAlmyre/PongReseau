@@ -1,4 +1,6 @@
 package pong;
+import pong.gui.Pong;
+
 import java.awt.Image;
 import java.awt.Point;
 
@@ -83,13 +85,14 @@ public class Ball extends PongItem {
 		}
 
 		/**
-		 * Verification des collisions avec les murs
+		 * Verification des collisions avec les murs + mise à jour du score
 		 */
 		
 		if (this.getPosition().x < 0)
 		{
 			this.setX(0);
 			this.setSpeedX(-this.getSpeed().x);
+			Pong.updateScore(false,true);
 		}
 		if (this.getPosition().y < 0)
 		{
@@ -100,6 +103,7 @@ public class Ball extends PongItem {
 		{
 			this.setX(pongX - this.getWidth());
 			this.setSpeedX(-this.getSpeed().x);
+			Pong.updateScore(true,false);
 		}
 		if (this.getPosition().y > pongY - this.getHeight())
 		{
