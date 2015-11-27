@@ -92,7 +92,7 @@ public class Ball extends PongItem {
 		{
 			this.setX(0);
 			this.setSpeedX(-this.getSpeed().x);
-			Pong.updateScore(false,true);
+			Pong.updateScore(false,true); // un point pour le joueur 2
 		}
 		if (this.getPosition().y < 0)
 		{
@@ -103,7 +103,7 @@ public class Ball extends PongItem {
 		{
 			this.setX(pongX - this.getWidth());
 			this.setSpeedX(-this.getSpeed().x);
-			Pong.updateScore(true,false);
+			Pong.updateScore(true,false); // un point pour le joueur 1
 		}
 		if (this.getPosition().y > pongY - this.getHeight())
 		{

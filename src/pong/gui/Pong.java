@@ -130,7 +130,7 @@ public class Pong extends JPanel implements KeyListener {
 
 	/* Initialisation des objets du Pong */
 	public Pong(String[] args) throws IOException {
-		ImageIcon icon = null;
+		ImageIcon icon;
 
 		Image tmpImage = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("image/ball.png"));
 
@@ -195,9 +195,6 @@ public class Pong extends JPanel implements KeyListener {
 		MyRacket.Collide(SIZE_PONG_Y);
 		P2Racket.Collide(SIZE_PONG_Y);
 
-		/*Mise à jour des scores */
-
-
 		/* And update output */
 		updateScreen();
 	}
@@ -247,6 +244,8 @@ public class Pong extends JPanel implements KeyListener {
 		g.drawImage(buffer, 0, 0, this);
 		Font f = new Font("Dialog", Font.BOLD, 50);
 		g.setFont(f);
+
+		/* affichage des scores à l'écran */
 		g.drawString(String.valueOf(scoreP1),SIZE_PONG_X/4,SIZE_PONG_Y/10);
 		g.drawString(String.valueOf(scoreP2),3*SIZE_PONG_X/4,SIZE_PONG_Y/10);
 	}
@@ -318,12 +317,16 @@ public class Pong extends JPanel implements KeyListener {
 		}
 		os = client.getOutputStream();
 		is = client.getInputStream();
-		//DataOutputStream out = new DataOutputStream(os);
-		//DataInputStream in = new DataInputStream(is);
+
 		br = new BufferedReader(new InputStreamReader(is, "utf-8"));
 		ps = new PrintStream(os, false, "utf-8");
 	}
 
+	/**
+	 * Mise à jour du score
+	 * @param bPlayerOne true si le joueur 1 gagne un point
+	 * @param bPlayerTwo true si le joueur 2 gagne un point
+     */
 	public static void updateScore(boolean bPlayerOne,boolean bPlayerTwo){
 		if(bPlayerOne) {
 			scoreP1++;
