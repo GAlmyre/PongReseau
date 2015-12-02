@@ -324,16 +324,16 @@ public class Pong extends JPanel implements KeyListener {
 
 	/**
 	 * Mise à jour du score
-	 * @param bPlayerOne true si le joueur 1 gagne un point
-	 * @param bPlayerTwo true si le joueur 2 gagne un point
+	 * @param player true si le joueur 1 gagne un point false si le joueur 2 gagne un point. // remplaçable par un int si on doit ajouter d'autres joueurs
      */
-	public static void updateScore(boolean bPlayerOne,boolean bPlayerTwo){
-		if(bPlayerOne) {
+	public static void updateScore(boolean player){
+		if(player) {
 			scoreP1++;
 		}
-		if(bPlayerTwo) {
+		if(!player) {
 			scoreP2++;
 		}
+
 	}
 
 }
