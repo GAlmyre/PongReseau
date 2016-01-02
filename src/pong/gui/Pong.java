@@ -57,6 +57,7 @@ public class Pong extends JPanel implements KeyListener {
 	 * Speed of racket (in pixels per second)
 	 */
 	public static final int RACKET_SPEED = 4;
+	private static final int SCORE_TO_WIN = 5;
 
 	/**
 	 * Pixel data buffer for the Pong rendering
@@ -273,15 +274,40 @@ public class Pong extends JPanel implements KeyListener {
 				graphicContext = buffer.getGraphics();
 		}
 		transfert();
+		if(scoreP1 < SCORE_TO_WIN && scoreP2 < SCORE_TO_WIN) {
 		/* Fill the area with blue */
-		graphicContext.setColor(backgroundColor);
-		graphicContext.fillRect(0, 0, SIZE_PONG_X, SIZE_PONG_Y);
+			graphicContext.setColor(backgroundColor);
+			graphicContext.fillRect(0, 0, SIZE_PONG_X, SIZE_PONG_Y);
 
 		/* Draw items */
-		graphicContext.drawImage(ball.getSprite(), ball.getPosition().x, ball.getPosition().y, ball.getWidth(), ball.getHeight(), null);
-		graphicContext.drawImage(MyRacket.getSprite(), MyRacket.getPosition().x, MyRacket.getPosition().y, MyRacket.getWidth(), MyRacket.getHeight(), null);
-		graphicContext.drawImage(P2Racket.getSprite(), P2Racket.getPosition().x, P2Racket.getPosition().y, P2Racket.getWidth(), P2Racket.getHeight(), null);
-		this.repaint();
+			graphicContext.drawImage(ball.getSprite(), ball.getPosition().x, ball.getPosition().y, ball.getWidth(), ball.getHeight(), null);
+			graphicContext.drawImage(MyRacket.getSprite(), MyRacket.getPosition().x, MyRacket.getPosition().y, MyRacket.getWidth(), MyRacket.getHeight(), null);
+			graphicContext.drawImage(P2Racket.getSprite(), P2Racket.getPosition().x, P2Racket.getPosition().y, P2Racket.getWidth(), P2Racket.getHeight(), null);
+			this.repaint();
+		}
+
+		if(scoreP1 == SCORE_TO_WIN){ /* In case of victory */
+			this.ball.setPosition(new Point(SIZE_PONG_X/2,SIZE_PONG_Y/2)); // STOP THE BALL
+			this.ball.setSpeed(new Point(0,0));
+			graphicContext.setColor(Color.RED);
+			graphicContext.fillRect(0,0,SIZE_PONG_X,SIZE_PONG_Y);
+			graphicContext.setColor(Color.BLACK);
+			Font f = new Font("Dialog", Font.BOLD, 50);
+			graphicContext.setFont(f);
+			graphicContext.drawString("Joueur 1 a gagné ! ",SIZE_PONG_X/4,SIZE_PONG_Y/2); // YOU WIN
+			this.repaint();
+
+		}
+		if(scoreP2 == SCORE_TO_WIN){
+			graphicContext.setColor(Color.GREEN);
+			graphicContext.fillRect(0,0,SIZE_PONG_X,SIZE_PONG_Y);
+			graphicContext.setColor(Color.BLACK);
+			Font f = new Font("Dialog", Font.BOLD, 50);
+			graphicContext.setFont(f);
+			graphicContext.drawString("Joueur 2 a gagné !",SIZE_PONG_X/4,SIZE_PONG_Y/2);
+			this.repaint();
+		}
+
 	}
 
 	/**
