@@ -174,7 +174,10 @@ public class Pong extends JPanel implements KeyListener {
          * Proceeds to the movement of the ball and updates the screen
 	 */
 	public void animate() throws IOException {
-		/* Update ball position */
+
+		int lastX = ball.getPosition().x;
+		/* Update ball position, given by the current server */
+
 		if(isServer) {
 			ball.Move();
 			ps.println(ball.getPosition().x);
@@ -184,6 +187,13 @@ public class Pong extends JPanel implements KeyListener {
 			ball.setX(Integer.parseInt(br.readLine()));
 			ball.setY(Integer.parseInt(br.readLine()));
 		}
+
+		int currentX = ball.getPosition().x;
+
+		/* Change server if the ball gets to an other region of the screen */
+		if((lastX <= SIZE_PONG_X/2 && currentX > SIZE_PONG_X/2)
+				|| (lastX > SIZE_PONG_X/2 && currentX <= SIZE_PONG_X/2))
+			switchServer();
 
 		/* collisions de la balle */
 		ball.Collide(MyRacket, P2Racket, SIZE_PONG_X, SIZE_PONG_Y);
@@ -291,6 +301,13 @@ public class Pong extends JPanel implements KeyListener {
 	}
 
 	/**
+	 * Changement de serveur
+	 */
+	public void switchServer() {
+		isServer = !isServer;
+	}
+
+	/**
 	 * Méthode d'initialisation des sockets, client, et serveur si il y a lieu
 	 * @param args
 	 * @throws IOException
@@ -333,7 +350,6 @@ public class Pong extends JPanel implements KeyListener {
 		if(!player) {
 			scoreP2++;
 		}
-
 	}
 
 }
