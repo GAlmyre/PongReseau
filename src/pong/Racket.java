@@ -7,7 +7,7 @@ public class Racket extends PongItem {
 	
 	private int speed;
 	
-	/* Accesseurs */
+	/* Getters and setters */
 	public int getSpeed() {
 		return speed;
 	}
@@ -16,25 +16,25 @@ public class Racket extends PongItem {
 		this.speed = speed;
 	}
 
-	/* Constructeur par défaut */
+	/* Default constructor */
 	public Racket() {
 		super();
 		this.speed = 0;
 	}
 
-	/* Constructeur avec arguments */
+	/* Constructor with parameters */
 	public Racket(Point position, Image sprite, int width, int height, int speed) {
 		super(position, sprite, width, height);
 		this.speed = speed;
 	}
 
-	/* Déplacement de la raquette */
+	/* RAcket movement */
 	@Override
 	public void Move() {
 		this.position.y += this.speed;
 	}
 
-	/* Collisions de la raquette avec les murs */
+	/* Collision between racket and walls */
 	public void Collide(int pongY) {
 
 		if (this.getPosition().y < 0)

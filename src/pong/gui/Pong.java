@@ -21,12 +21,6 @@ import pong.Racket;
  * order to display graphical elements.
  */
 
-
-/*
-	Pour la partie réseau
-	On crée un socket dans le programme en fonction des arguments
-	si argument il y a, ce sera le string du constructeur du socket, sinon ce sera la machine "principale" et on utilisera donc localhost
- */
 public class Pong extends JPanel implements KeyListener {
 
 	private static final long serialVersionUID = 1L;
@@ -112,7 +106,7 @@ public class Pong extends JPanel implements KeyListener {
 	private Point racket_position = new Point(0, 0);
 
 	/**
-	 * Sockets et streams
+	 * Sockets and streams
 	 */
 	private ServerSocket server;
 	private Socket client;
@@ -124,28 +118,28 @@ public class Pong extends JPanel implements KeyListener {
 	private ImageIcon icon;
 
 	/**
-	 * Scores des joueurs
+	 * Players' scores
 	 */
 	private static int scoreP1, scoreP2;
 
 
-	/* Initialisation des objets du Pong */
+	/* Initialization */
 	public Pong(String[] args) throws IOException {
 		ImageIcon icon;
 
 		Image tmpImage = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("image/ball.png"));
 
-		/* Initialisation des scores */
+		/* scores initialization */
 		scoreP1 = scoreP2 = 0;
 
-		/* création de la balle */
+		/* ball creation */
 		ball = new Ball(ball_position, tmpImage, ball_width, ball_height, ball_speed);
 		
 		icon = new ImageIcon(ball.getSprite());
 		ball.setHeight(icon.getIconHeight());
 		ball.setWidth(icon.getIconWidth());
 		
-		/* création des raquettes */
+		/* rackets creation */
 		tmpImage = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("image/racket.png"));
 		MyRacket = new Racket(racket_position,tmpImage, racket_width, racket_height, racket_speed);
 		P2Racket = new Racket(racket_position,tmpImage, racket_width, racket_height, racket_speed);
@@ -160,6 +154,7 @@ public class Pong extends JPanel implements KeyListener {
 
 		InitSockets(args);
 
+		/* where to put each racket on the screen */
 		if(isServer) {
 			P2Racket.setPosition(new Point(SIZE_PONG_X - P2Racket.getWidth(), SIZE_PONG_Y/2));
 		}
@@ -179,15 +174,10 @@ public class Pong extends JPanel implements KeyListener {
 		int lastX = ball.getPosition().x;
 		/* Update ball position, given by the current server */
 
-		if(isServer) {
+		if(isServer)
 			ball.Move();
-			ps.println(ball.getPosition().x);
-			ps.println(ball.getPosition().y);
-		}
-		else {
-			ball.setX(Integer.parseInt(br.readLine()));
-			ball.setY(Integer.parseInt(br.readLine()));
-		}
+
+		transfert();
 
 		int currentX = ball.getPosition().x;
 
@@ -196,13 +186,13 @@ public class Pong extends JPanel implements KeyListener {
 				|| (lastX > SIZE_PONG_X/2 && currentX <= SIZE_PONG_X/2))
 			switchServer();
 
-		/* collisions de la balle */
+		/* ball's collisions */
 		ball.Collide(MyRacket, P2Racket, SIZE_PONG_X, SIZE_PONG_Y);
 
 		/* Update racket position */
 		MyRacket.Move();
 
-		/* Collisions des raquettes */
+		/* racket's collisions */
 		MyRacket.Collide(SIZE_PONG_Y);
 		P2Racket.Collide(SIZE_PONG_Y);
 
@@ -273,7 +263,6 @@ public class Pong extends JPanel implements KeyListener {
 			else
 				graphicContext = buffer.getGraphics();
 		}
-		transfert();
 		if(scoreP1 < SCORE_TO_WIN && scoreP2 < SCORE_TO_WIN) {
 		/* Fill the area with blue */
 			graphicContext.setColor(backgroundColor);
@@ -311,30 +300,38 @@ public class Pong extends JPanel implements KeyListener {
 	}
 
 	/**
-	 * Méthode de transfert de données d'un Pong à l'autre
+	 * Transfer method with sockets
 	 * @throws IOException
 	 */
 	public void transfert() throws IOException {
 
-		// transfert d'infos par les sockets
-		if (!isServer) {
-			ps.println(MyRacket.getPosition().y);
-		}
-		if (isServer) {
-			ps.println(MyRacket.getPosition().y);
-		}
+		/* Racket's position */
+		ps.println(MyRacket.getPosition().x);
+		ps.println(MyRacket.getPosition().y);
+
+		P2Racket.setX(Integer.parseInt(br.readLine()));
 		P2Racket.setY(Integer.parseInt(br.readLine()));
+
+		/* ball's position */
+		if (isServer) {
+			ps.println(ball.getPosition().x);
+			ps.println(ball.getPosition().y);
+		}
+		else {
+			ball.setX(Integer.parseInt(br.readLine()));
+			ball.setY(Integer.parseInt(br.readLine()));
+		}
 	}
 
 	/**
-	 * Changement de serveur
+	 * Changes which computer is the server
 	 */
 	public void switchServer() {
 		isServer = !isServer;
 	}
 
 	/**
-	 * Méthode d'initialisation des sockets, client, et serveur si il y a lieu
+	 * Socket's initilization
 	 * @param args
 	 * @throws IOException
 	 */
@@ -356,7 +353,7 @@ public class Pong extends JPanel implements KeyListener {
 			}
 		}
 		catch(Exception e) {
-			// traitement d'erreur
+			// error handling
 		}
 		os = client.getOutputStream();
 		is = client.getInputStream();
@@ -366,8 +363,8 @@ public class Pong extends JPanel implements KeyListener {
 	}
 
 	/**
-	 * Mise à jour du score
-	 * @param player true si le joueur 1 gagne un point false si le joueur 2 gagne un point. // remplaçable par un int si on doit ajouter d'autres joueurs
+	 * Score update
+	 * @param player true if player1 gets a point false otherwise. // we could use an int if we have more than 2 players
      */
 	public static void updateScore(boolean player){
 		if(player) {
@@ -377,5 +374,4 @@ public class Pong extends JPanel implements KeyListener {
 			scoreP2++;
 		}
 	}
-
 }

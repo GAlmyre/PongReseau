@@ -5,19 +5,19 @@ import java.awt.Point;
 
 public abstract class PongItem {
 	
-	/* Classe abstraite dont hériteront tous les objets visuels du jeu */
+	/* Abstract class for visual items of the game */
 	
-	/* Position du point */
+	/* Point's position */
 	protected Point position;
 	
-	/* Image de l'objet */
+	/* sprite */
 	protected Image sprite;
 	
 	/* Dimensions */
 	protected int width;
 	protected int height;
 	
-	/* Accesseurs */
+	/* getters and setters */
 	public Point getPosition() {
 		return position;
 	}
@@ -58,7 +58,7 @@ public abstract class PongItem {
 		this.height = height;
 	}
 
-	/* Constructeur par défaut */
+	/* default constructor */
 	public PongItem() {
 		this.position = new Point(0,0);
 		this.sprite = null;
@@ -66,13 +66,13 @@ public abstract class PongItem {
 		this.height = 0;
 	}
 	
-	/* Constructeur avec paramètres */
+	/* Constructor with parameters */
 	public PongItem(Point position, Image sprite, int width, int height) {
 		this.position = position;
 		this.sprite = sprite;
 		this.width = width;
 		this.height = height;
 	}
-	/* Déplacement à implémenter dans les descendants */
+	/* Move method, to implement in classes */
 	public abstract void Move();
 }

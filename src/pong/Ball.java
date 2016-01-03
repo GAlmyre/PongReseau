@@ -6,10 +6,10 @@ import java.awt.Point;
 
 public class Ball extends PongItem {
 
-	/* Point pour indiquer la direction de la balle */
+	/* Gives the direction of the ball */
 	private Point speed;
 	
-	/* Accesseurs */
+	/* Getters and setters */
 	public Point getSpeed() {
 		return speed;
 	}
@@ -28,30 +28,30 @@ public class Ball extends PongItem {
 		this.speed.y = speedY;
 	}
 
-	/* Constructeur par défaut */
+	/* Default constructor */
 	public Ball() {
 		super();
 		this.speed = new Point(0, 0);
 	}
 	
-	/* Constructeur avec paramètres */
+	/* Constructor with parameters */
 	public Ball(Point position, Image sprite, int width, int height, Point speed) {
 		super(position, sprite, width, height);
 		this.speed = (Point) speed.clone();
 	}
 
-	/* Déplacement de la balle */
+	/* Ball's movement */
 	@Override
 	public void Move() {
 
 		this.position.translate(this.speed.x, this.speed.y);
 	}
 
-	/* Gestion des collisions avec les raquettes */
+	/* Handles the collision with the rackets */
 	public void Collide (Racket r1, Racket r2, int pongX, int pongY) {
 
 		/**
-		 *  Verification des collisions avec les raquettes
+		 *  Check collision with the rackets
 		 */
 		Racket rG;
 		Racket rD;
@@ -65,34 +65,34 @@ public class Ball extends PongItem {
 			rD = r1;
 		}
 
-		/* On vérifie que l'on touche la première raquette */
+		/* Do we hit the first racket ? */
 		if (this.getPosition().x < rG.getPosition().x+rG.getWidth()
 				&& this.getPosition().y <= rG.getPosition().y+rG.getHeight()/2
 				&& this.getPosition().y >= rG.getPosition().y)
 		{
-			/* On modifie la trajectoire */
+			/* change trajectory */
 			this.setX(rG.getPosition().x+ rG.getWidth());
 			this.setSpeedX(-this.getSpeed().x);
 		}
-		/* On vérifie que l'on touche la deuxième raquette */
+		/* Do we hit the second racket ? */
 		if (this.getPosition().x + this.getWidth() > rD.getPosition().x
 				&& this.getPosition().y <= rD.getPosition().y+rD.getHeight()/2
 				&& this.getPosition().y >= rD.getPosition().y)
 		{
-			/* On modifie la trajectoire */
+			/* Change trajectory */
 			this.setX(rD.getPosition().x - this.getWidth());
 			this.setSpeedX(-this.getSpeed().x);
 		}
 
 		/**
-		 * Verification des collisions avec les murs + mise à jour du score
+		 * Collision with the walls and score update
 		 */
 		
 		if (this.getPosition().x < 0)
 		{
 			this.setX(0);
 			this.setSpeedX(-this.getSpeed().x);
-			Pong.updateScore(false); // un point pour le joueur 2
+			Pong.updateScore(false); // On point for Player 1
 			this.setPosition(new Point(pongX/2,pongY/2));
 		}
 		if (this.getPosition().y < 0)
@@ -104,7 +104,7 @@ public class Ball extends PongItem {
 		{
 			this.setX(pongX - this.getWidth());
 			this.setSpeedX(-this.getSpeed().x);
-			Pong.updateScore(true); // un point pour le joueur 1
+			Pong.updateScore(true); // one point for Player 2
 			this.setPosition(new Point(pongX/2,pongY/2));
 		}
 		if (this.getPosition().y > pongY - this.getHeight())
